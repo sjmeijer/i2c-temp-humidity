@@ -51,6 +51,7 @@ def makeWebPage(ts,humidity,tempF):
 	fh.write('<html lang="en">\n')
 	fh.write('	<head>\n')
 	fh.write('		<meta charset="utf-8">\n')
+	fh.write('		<meta http-equiv="refresh" content="5">\n')
 	fh.write('		<title>Sensor Values</title>\n')
 	fh.write('	</head\n>')
 	fh.write('	<body>\n')

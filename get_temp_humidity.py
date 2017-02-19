@@ -38,8 +38,8 @@ def take_data(bus, test=False):
     Returns
     -------
     humidity (float): % value
-    tempC (float): absolute temperature in degrees celcius
-    tempF (float): absolute temperature in degress fahrenheit
+    tempC (float): absolute temperature in degrees Celsius
+    tempF (float): absolute temperature in degrees Fahrenheit
     """
     if test:
         return take_test_data()

@@ -66,7 +66,7 @@ database: db_name
 user/pw: root/root (probably should change)
 ```
 
-The test when you save should be successful. If you get an "Unknown Error InfluxDB Error: undefined" then something is wrong...
+The test when you save should be successful. If you get an "Unknown Error InfluxDB Error: undefined" then double check that you have correctly set the port to 8086 (not the Graphite default of 8080)
 
 
 # CollectD

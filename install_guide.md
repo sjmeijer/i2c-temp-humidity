@@ -71,7 +71,11 @@ The test when you save should be successful. If you get an "Unknown Error Influx
 
 # CollectD
 
+CollectD is a daemon that gathers performance data about the computer (raspberry pi). We'll just use it to make some test data.
+
+```bash
 sudo apt install collectd
+```
 
 ## Getting collectd working with influxdb
 
@@ -84,7 +88,7 @@ sudo vi /etc/collectd/collectd.conf
 ```
 
 Similary edit the config for influxdb. Search for collectd stuff and uncomment. Ensure that the database 
-it is sending to exsits, you may need to create it using the steps above.
+it is sending to exists, you may need to create it using the steps above.
 
 ```bash
 sudo vi /etc/influxdb/influxdb.conf

@@ -55,9 +55,9 @@ sudo /bin/systemctl enable grafana-server
 sudo /bin/systemctl start grafana-server
 ```
 
-Configure Grafana through the dashboard at `localhost:3000` (user/pw: admin/admin)
+Configure Grafana through the dashboard at `localhost:3000` (Login with user/pw: admin/admin)
 
-You can add an influx datasource using the following:
+Select a name, then choose type "InfluxDB". The influx datasource should be configured using the following:
 ```
 url: http://localhost:8086
 access:proxy
@@ -66,7 +66,7 @@ database: db_name
 user/pw: root/root (probably should change)
 ```
 
-The test when you save should be successful. 
+The test when you save should be successful. If you get an "Unknown Error InfluxDB Error: undefined" then something is wrong...
 
 
 # CollectD

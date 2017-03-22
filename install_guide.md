@@ -5,7 +5,7 @@
 
 You'll need to have the following modules installed, which may not be done by default
 ```bash
-sudo apt-get install python-smbus
+sudo apt-get install python-smbus i2c-tools
 sudo pip install apscheduler
 ```
 

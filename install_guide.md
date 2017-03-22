@@ -117,3 +117,10 @@ sudo collectd
 # run influx
 influx
 ```
+
+You also need to have the following modules installed, which may not be done by default
+```bash
+sudo apt-get install python-smbus
+sudo pip install apscheduler
+```
+

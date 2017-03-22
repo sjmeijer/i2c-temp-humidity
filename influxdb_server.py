@@ -1,5 +1,5 @@
-from __future__ import print_function, relative_import
-from .get_temp_humidity import setup, take_data
+from __future__ import print_function, absolute_import
+from get_temp_humidity import setup, take_data
 import argparse
 from apscheduler.schedulers.blocking import BlockingScheduler
 from influxdb import client as influxdb

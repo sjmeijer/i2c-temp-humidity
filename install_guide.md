@@ -1,5 +1,16 @@
 # Install guide
 
+
+## Basic dependencies
+
+You'll need to have the following modules installed, which may not be done by default
+```bash
+sudo apt-get install python-smbus
+sudo pip install apscheduler
+```
+
+
+## Introduction
 The following instructions are for installing
 
 1. InfluxDB (time series database for storing the data)
@@ -118,9 +129,4 @@ sudo collectd
 influx
 ```
 
-You also need to have the following modules installed, which may not be done by default
-```bash
-sudo apt-get install python-smbus
-sudo pip install apscheduler
-```
 

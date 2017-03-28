@@ -1,5 +1,21 @@
 # Install guide
 
+
+## Basic dependencies
+
+You'll need to have the following modules installed, which may not be done by default
+```bash
+sudo apt-get install python-smbus i2c-tools
+sudo apt-get install python-influxdb
+sudo pip install apscheduler
+```
+
+Also, a good idea to have:
+```bash
+sudo apt-get install nginx
+```
+
+## Introduction
 The following instructions are for installing
 
 1. InfluxDB (time series database for storing the data)
@@ -117,3 +133,5 @@ sudo collectd
 # run influx
 influx
 ```
+
+

@@ -7,12 +7,12 @@ class Device:
 		self.test = False
 		self.autoprocess = True
 
-		self.base_address = 0x0	# this must be set correctly by the subclass
-		self.num_reads = 1	# this must be set correctly by the subclass
+		self.base_address = None	# this must be set correctly by the subclass
+		self.num_reads = None	# this must be set correctly by the subclass
+		self.bus = None				# this must be set
 
 
-
-	def simple_read(self, bus, address, num_reads):
+	def simple_read(self):
 		"""
 		Perform a single data read from the 0x0 register in the device
 
@@ -31,7 +31,7 @@ class Device:
 			return take_test_data()
 		else:
 			try:
-				vals = bus.read_i2c_block_data(address, 0x0, num_reads)
+				vals = self.bus.read_i2c_block_data(self.base_address, 0x0, self.num_reads)
 				
 				return vals
 		

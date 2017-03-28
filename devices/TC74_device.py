@@ -15,9 +15,12 @@ class TC74(Device):
 		self.device_name = "TC74"
 		self.base_address = 0x48;
 		self.num_reads = 1
+		self.bus = None
 
 		self.tempC = 0
 		self.tempF = 0
+
+		self.setup()
 
 
 	def setup(self):
@@ -38,6 +41,8 @@ class TC74(Device):
 
 		# give us a moment
 		time.sleep(0.1)
+
+		self.bus = bus
 		return bus
 
 
@@ -81,5 +86,12 @@ class TC74(Device):
 		data = values[0]&0xFF
 
 		self.tempC = data
-		self.tempF = (self.tempC * 9/5) + 32
+		self.tempF = (self.tempC * 9.0/5) + 32
+
+		return
+
+	def read_and_process(self):
+		self.process_raw_values(self.simple_read())
+
+		return
 

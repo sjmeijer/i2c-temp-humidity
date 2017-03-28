@@ -5,12 +5,15 @@ Reads out data from the sensor and prints it to the terminal
 
 from __future__ import print_function, absolute_import
 from get_temp_humidity import setup, take_data
+
+from devices/TC74_device import TC74
+
 import argparse
 from apscheduler.schedulers.blocking import BlockingScheduler
 from datetime import datetime
 
 
-def write_data(bus=None, test=False):
+def print_data(bus=None, test=False):
     """
     Take temp and humidity data from the sensor on `bus` and write it to the
     console
@@ -22,6 +25,15 @@ def write_data(bus=None, test=False):
     h, tc, tf = take_data(bus, test)
     print("Temperature(F): %0.2f, Humidity: %0.2f" % (tf, h))
     return
+
+def read_and_process(device)
+    """
+
+
+	"""
+	device.simple_read(device.bus, device.base_address, device.num_reads)
+
+	
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -41,10 +53,11 @@ if __name__ == "__main__":
 
     if args.test:
         sched.add_job(lambda: write_data(test=True),
-                      'interval', minutes=args.interval)
+                      'interval', seconds=args.interval)
     else:
-        bus = setup(args.i2cport)
+        dev = TC74(args.i2cport)
+
         sched.add_job(lambda: write_data(bus=bus),
-                      'interval', minutes=args.interval)
+                      'interval', seconds=args.interval)
 
     sched.start()

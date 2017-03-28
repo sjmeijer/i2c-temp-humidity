@@ -10,6 +10,10 @@ sudo apt-get install python-influxdb
 sudo pip install apscheduler
 ```
 
+Also, a good idea to have:
+```bash
+sudo apt-get install nginx
+```
 
 ## Introduction
 The following instructions are for installing

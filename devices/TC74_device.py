@@ -46,7 +46,7 @@ class TC74(Device):
 		return bus
 
 
-	def write_json(self, bus):
+	def write_json(self):
 		"""
 		Format the JSON for outputing the resulting data
 		"""
@@ -64,7 +64,7 @@ class TC74(Device):
 		]
 		#  [{"tempC": tc},{"unit": "C"},{"measurement":"temperature"}],
 
-		return json_body
+		return str(json_body)
 
 	def process_raw_values(self, values):
 		"""

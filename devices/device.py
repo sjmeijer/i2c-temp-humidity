@@ -1,4 +1,6 @@
-class device():
+from datetime import datetime
+
+class Device:
 	def __init__(self):
 		print "initializing..."
 
@@ -38,28 +40,6 @@ class device():
 				print("The device appears to have been disconnected. Check the connections.")
 
 
-	def
 
-	def old_write_json(self):
-		"""
-		Format the JSON for outputing the data
-		
-		This function is not used, and will be removed shortly
-		"""
-	    	h, tc, tf = take_data(bus, test)
-
-		json_body = [
-        		{
-            		"measurement": "temp_humd",
-            		"time": datetime.utcnow(),
-            		"fields": 
-                		[{"tempC": tc},{"unit": "C"},{"measurement":"temperature"}],
-                		"tempF": tf,
-                		"humidity": h
-            			
-        		}
-		]
-
-	return json_body
 
 

@@ -1,7 +1,13 @@
-class TC74(device):
+import time
+from datetime import datetime
+from device import Device
 
-	def _init__(self, i2c_port):
-		device.__init__(self)
+class TC74(Device):
+
+	def __init__(self, i2c_port):
+		Device.__init__(self)
+
+		self.port = i2c_port
 
 		self.test = False
 		self.autoprocess = True
@@ -23,7 +29,7 @@ class TC74(device):
 		i2c_port (int, default=1)
 		"""
 		import smbus
-		bus = smbus.SMBus(i2c_port)
+		bus = smbus.SMBus(self.port)
 
 		try:
 			bus.write_quick(self.base_address)
@@ -45,8 +51,10 @@ class TC74(device):
 			"measurement": "temperature",
 			"device": self.device_name,
 			"time": datetime.utcnow(),
-			"tempC": self.tempC,
-			"tempF": self.tempF
+			"values":{
+				"tempC": self.tempC,
+				"tempF": self.tempF
+			}
 		}
 		]
 		#  [{"tempC": tc},{"unit": "C"},{"measurement":"temperature"}],

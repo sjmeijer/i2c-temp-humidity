@@ -46,25 +46,32 @@ class TC74(Device):
 		return bus
 
 
-	def write_json(self):
+	def write_json(self,string=True):
 		"""
 		Format the JSON for outputing the resulting data
 		"""
 		
+		theTime = time.mktime(time.localtime())
+
 		json_body = [
 		{
-			"measurement": "temperature",
 			"device": self.device_name,
-			"time": datetime.utcnow(),
-			"values":{
-				"tempC": self.tempC,
-				"tempF": self.tempF
-			}
+			"time": theTime,
+			"port": self.port,
+			"measurementType": "temperature",
+			"value": self.tempC,
+			"tempUnit": "C"
 		}
+
 		]
+		#	{'device': 'TC74', 'time': 12336677, 'value': 17, 'units': 'C',   'title': 'temperature'}
 		#  [{"tempC": tc},{"unit": "C"},{"measurement":"temperature"}],
 
-		return str(json_body)
+		if string:
+			return str(json_body)
+		else:
+			return json_body
+
 
 	def process_raw_values(self, values):
 		"""

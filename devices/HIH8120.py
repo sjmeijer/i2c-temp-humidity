@@ -1,5 +1,8 @@
-class HIH8120(device):
+import time
+from datetime import datetime
+from device import Device
 
+class HIH8120(Device):
 	def __init__(self, i2c_port):
 		device.__init__(self)
 
@@ -15,10 +18,11 @@ class HIH8120(device):
 
 	def setup(self):
 
-
 		import smbus
 		bus = smbus.SMBus(i2c_port)
 
+		return
 
 	def process_raw_values(self, values):
+		return 1
 

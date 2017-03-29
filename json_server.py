@@ -1,0 +1,70 @@
+from __future__ import print_function, absolute_import
+import argparse
+from apscheduler.schedulers.blocking import BlockingScheduler
+from datetime import datetime
+from devices.TC74_device import TC74
+from devices.HIH8120 import HIH8120
+
+def write_data(device=None):
+	
+	text = []
+	
+#	print(devs)
+
+	for device in devs:
+#		print("Trying device: ", device)
+		try:
+			device.read_and_process()
+			text += device.write_json(False)
+	
+		except Exception as e:
+			print(e)
+
+
+
+	with open('/var/www/html/read.json','w') as fh:
+		fh.write(str(text))	
+		fh.close()
+
+	return
+
+
+def parse_args():
+	parser = argparse.ArgumentParser(
+        description="Get temperature and humidity")
+	parser.add_argument('--tc74', type=int, required=False, nargs='*')
+	parser.add_argument('--hih8120', type=int, required=False, nargs='*')
+	
+#	parser.add_argument('--i2cport', type=int, required=False, default=1,
+#                        help='i2c port of temp/humidity sensor')
+	parser.add_argument('--interval', type=int, required=False, default=1,
+                        help='interval (in seconds) to take data')
+
+
+	return parser.parse_args()
+
+
+if __name__ == "__main__":
+	args = parse_args()
+	sched = BlockingScheduler()
+
+	devs = []
+
+	if(args.tc74):
+		for dd in args.tc74:
+			print("Adding a TC74 device on port ",dd)
+			devs.append(TC74(dd))
+	if(args.hih8120):
+		for dd in args.hih8120:
+			devs.append(HIH8120(dd))
+
+	if(len(devs) == 0):
+		print("You must specify some devices to read out. Quitting...")
+		raise SystemExit(0)
+
+	sched.add_job(lambda: write_data(device=devs),
+                 'interval', seconds=args.interval)
+	
+	print("Starting scheduler...")
+	sched.start()
+

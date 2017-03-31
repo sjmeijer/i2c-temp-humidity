@@ -70,6 +70,9 @@ if __name__ == "__main__":
 		with open(args.filename,'r') as fh:
 			fh.seek(0)
 			for line in fh:
+				if(line.lstrip[0] == '#'):
+					pass
+
 				if(len(line.split(',')) !=3):
 					print("File incorrectly formatted at line: ",line)
 						

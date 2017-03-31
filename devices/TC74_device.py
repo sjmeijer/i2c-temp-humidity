@@ -4,7 +4,7 @@ from device import Device
 
 class TC74(Device):
 
-	def __init__(self, i2c_port):
+	def __init__(self, i2c_port, descr="TC74 Sensor"):
 		Device.__init__(self)
 
 		self.port = i2c_port
@@ -16,6 +16,7 @@ class TC74(Device):
 		self.base_address = 0x48;
 		self.num_reads = 1
 		self.bus = None
+		self.description = descr
 
 		self.tempC = 0
 		self.tempF = 0
@@ -34,6 +35,9 @@ class TC74(Device):
 		import smbus
 		bus = smbus.SMBus(self.port)
 
+		self.bus = bus
+		self.warmup()
+
 		try:
 			bus.write_quick(self.base_address)
 		except IOError as e:
@@ -42,10 +46,9 @@ class TC74(Device):
 		# give us a moment
 		time.sleep(0.1)
 
-		self.bus = bus
 		return bus
 
-
+	
 	def write_json(self,string=True):
 		"""
 		Format the JSON for outputing the resulting data
@@ -57,10 +60,11 @@ class TC74(Device):
 		{
 			"device": self.device_name,
 			"time": theTime,
+			"description": self.description,
 			"port": self.port,
-			"measurementType": "temperature",
+			"type": "temperature",
 			"value": self.tempC,
-			"tempUnit": "C"
+			"unit": "C"
 		}
 
 		]

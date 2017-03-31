@@ -30,6 +30,7 @@ class Device:
 		if self.test:
 			return take_test_data()
 		else:
+			self.warmup()
 			try:
 				vals = self.bus.read_i2c_block_data(self.base_address, 0x0, self.num_reads)
 				
@@ -41,5 +42,21 @@ class Device:
 
 
 
+	def read_and_process(self):
+		self.process_raw_values(self.simple_read())
+
+		return
 
 
+	def warmup(self):
+		"""
+		Get the device ready to do a read
+		"""
+		
+		try:
+			self.bus.write_quick(self.base_address)
+		except Exception as e:
+			print(e)
+			print("The device is not present. Check that it is correctly connected")
+
+		

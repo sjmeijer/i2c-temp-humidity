@@ -13,18 +13,24 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 from datetime import datetime
 
 
-def print_data(bus=None, test=False):
-    """
-    Take temp and humidity data from the sensor on `bus` and write it to the
-    console
+def print_data(device):
+	"""
+	Take temp and humidity data from the sensor on `bus` and write it to the
+	console
 
-    Parameters
-    ----------
-    test: Use simulated data
-    """
-    h, tc, tf = take_data(bus, test)
-    print("Temperature(F): %0.2f, Humidity: %0.2f" % (tf, h))
-    return
+	Parameters
+	----------
+	device: the device class object that you wish to read out
+	"""
+
+	try:
+		device.read_and_process()
+	except Exception as e:
+		print(e)
+
+	print("Temperature(F): %0.2f" % (device.tempF))
+
+	return
 
 
 def parse_args():
@@ -40,16 +46,12 @@ def parse_args():
 
 
 if __name__ == "__main__":
-    args = parse_args()
-    sched = BlockingScheduler()
+	args = parse_args()
+	sched = BlockingScheduler()
 
-    if args.test:
-        sched.add_job(lambda: print_data(test=True),
-                      'interval', seconds=args.interval)
-    else:
-        dev = TC74(args.i2cport)
+	dev = TC74(args.i2cport)
 
-        sched.add_job(lambda: print_data(bus=bus),
-                      'interval', seconds=args.interval)
+	sched.add_job(lambda: print_data(device=dev),
+				'interval', seconds=args.interval)
 
-    sched.start()
+	sched.start()

@@ -3,10 +3,11 @@ Serves a writes a basic JSON file, that is continuously updated
 """
 
 from __future__ import print_function, absolute_import
+import six  # for compatibility between version 2 and 3
 import argparse
 from apscheduler.schedulers.blocking import BlockingScheduler
 import devices
-import configparser
+from six.moves import configparser
 
 
 def write_data(devs, filename="/var/www/html/read.json"):
@@ -65,17 +66,19 @@ if __name__ == "__main__":
         raise SystemExit(0)
     else:
         for device in device_names:
-            d = config[device]
+            # print out the device info
             print("Device:", device)
             labels = ["Type", "Description", "Port"]
             for i in labels:
                 try:
-                    print(i, ": ", d[i])
+                    print(i, ": ", config.get(device, i))
                 except:
                     pass
+
+            port = config.getint(device, "Port")
             # actually load up the class
-            devs.append(getattr(devices, d["Type"])(int(d["Port"])))
-            devs[-1].description = d["Description"]
+            devs.append(getattr(devices, config.get(device, "Type"))(port))
+            devs[-1].description = config.get(device, "Description")
 
     print("Starting scheduler...")
     sched.add_job(lambda: write_data(devs=devs),

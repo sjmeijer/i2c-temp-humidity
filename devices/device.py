@@ -1,7 +1,13 @@
+"""
+Base device class
+"""
 from datetime import datetime
 
 
 class Device:
+    """
+    Base device class that is inherited by all the other classes
+    """
 
     def __init__(self):
         print("Initializing...")
